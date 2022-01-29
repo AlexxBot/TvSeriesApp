@@ -45,6 +45,7 @@ class ButtonStyledWidgetState extends State<ButtonStyledWidget> {
     _visible = true;
   }
 
+  @override
   Widget build(BuildContext context) {
     return Visibility(
       visible: _visible,

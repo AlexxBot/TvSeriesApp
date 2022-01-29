@@ -32,9 +32,10 @@ final lightTheme = ThemeData(
   accentIconTheme: IconThemeData(color: Colors.white),
   dividerColor: Colors.white54,
 ); */
-
+const textColor = Colors.white;
 const primaryColor = Color(0XFF2D2F63);
-const secondaryColor = Color(0XE6383838) /* Color(0xFF5A5A5A) */;
+const secondaryColor = /* Color(0XE6383838) */ /* Color(0xFF5A5A5A) */ Colors
+    .black12;
 const thirdColor = Color(0xFF5A5A5A);
 const itemListColor = Color(0XFFEEEEEE);
 final listBackgroundColor = Colors.grey.shade200;
@@ -76,7 +77,8 @@ final lightTheme = ThemeData(
     inputDecorationTheme: InputDecorationTheme(fillColor: Colors.transparent),
     //primaryColorDark: Color(0xAf3B7FFF),
     accentColor: secondaryColor,
-    backgroundColor: Colors.transparent,
+    backgroundColor: secondaryColor,
+    scaffoldBackgroundColor: secondaryColor,
     buttonTheme: ButtonThemeData(
       // 4
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),

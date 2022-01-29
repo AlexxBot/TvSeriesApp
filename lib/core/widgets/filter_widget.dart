@@ -96,7 +96,10 @@ class FilterWidgetState extends State<FilterWidget> {
                         color: primaryColor,
                         borderRadius: BorderRadius.circular(borderRadiusModal),
                       ),
-                      child: const TextWidget("Buscar")),
+                      child: const TextWidget(
+                        "Buscar",
+                        color: textColor,
+                      )),
               /* : Icon(Icons.arrow_drop_down_sharp), */
               title: _readOnly
                   ? const SizedBox(

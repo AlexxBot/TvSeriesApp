@@ -1,11 +1,16 @@
 class ShowItem {
+  final int id;
   final String name;
   final String? imageUrl;
 
-  ShowItem({required this.name, this.imageUrl});
+  ShowItem({required this.id, required this.name, this.imageUrl});
 
   factory ShowItem.fromJson(Map<String, dynamic> json) {
+    final show = json["show"] ?? {};
+    final image = show["image"] ?? {};
     return ShowItem(
-        name: json['show']['name'], imageUrl: json['show']['image']['medium']);
+        id: show['id'],
+        name: show['name'] ?? '',
+        imageUrl: image['medium'] ?? '');
   }
 }

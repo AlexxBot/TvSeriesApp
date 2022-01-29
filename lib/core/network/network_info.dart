@@ -1,7 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 
 abstract class NetworkInfo {
-  /* Future<bool> get isConnected; */
   String get url;
 
   set url(String newValue);
@@ -10,23 +9,19 @@ abstract class NetworkInfo {
 }
 
 class NetworkInfoImpl implements NetworkInfo {
-  //final DataConnectionChecker connectionChecker;
   final Connectivity connectivity;
   String _url;
-  NetworkInfoImpl(/* this.connectionChecker,  */ this.connectivity, this._url);
+  NetworkInfoImpl(this.connectivity, this._url);
 
   @override
-  Future<bool>
-      get isConnected => /* connectionChecker.hasConnection */ /* Future
-      .value(true) */
-          isConnectedToNetwork();
+  Future<bool> get isConnected => isConnectedToNetwork();
+
   @override
-  // TODO: implement url
-  String get url => this._url;
+  String get url => _url;
 
   @override
   set url(String newValue) {
-    this._url = newValue;
+    _url = newValue;
   }
 
   Future<bool> isConnectedToNetwork() async {

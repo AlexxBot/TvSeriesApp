@@ -33,8 +33,8 @@ Future<void> init() async {
 
   sl.registerLazySingleton(() => Headers());
 
-  sl.registerLazySingleton<NetworkInfo>(
-      () => NetworkInfoImpl(sl(), dotenv.env['URL']!));
+  sl.registerLazySingleton<NetworkInfo>(() =>
+      NetworkInfoImpl(sl(), /* dotenv.env['URL']! */ "https://api.tvmaze.com"));
 
   //! External
   //final sharedPreferences = await SharedPreferences.getInstance();
