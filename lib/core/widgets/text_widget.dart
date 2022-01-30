@@ -19,15 +19,14 @@ class TextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      maxLines: 3,
+      maxLines: 10,
       overflow: TextOverflow.ellipsis,
       textAlign: textAlign,
       style: TextStyle(
           fontWeight: fontWeight,
           decoration: TextDecoration.none,
           fontFamily: 'Sora',
-          color: /* color ?? Theme.of(context).scaffoldBackgroundColor */ Colors
-              .white,
+          color: color ?? Colors.white,
           fontSize: fontSize),
     );
   }

@@ -12,6 +12,7 @@ import 'package:tvseries_app/injections.dart';
 
 abstract class ShowRemoteData {
   Future<List<ShowItem>> search(ShowFilter showFilter);
+  Future<ShowItem> getShow(String id);
   Future<List<Episode>> getEpisodes(String id);
 }
 
@@ -33,6 +34,22 @@ class ShowRemoteDataImple implements ShowRemoteData {
       final list =
           listJson.map<ShowItem>((show) => ShowItem.fromJson(show)).toList();
       return list;
+    } else {
+      throw ApiResponseException(statusCode: response.statusCode);
+    }
+  }
+
+  @override
+  Future<ShowItem> getShow(String id) async {
+    final uri = Uri.parse('${sl<NetworkInfo>().url}/$shows/$id');
+    final response = await client
+        .get(uri, headers: sl<Headers>().headers)
+        .timeout(const Duration(seconds: timeout),
+            onTimeout: () => throw TimeOutException());
+    if (response.statusCode == 200) {
+      final showJson = jsonDecode(response.body);
+      final show = ShowItem.fromJsonItem(showJson);
+      return show;
     } else {
       throw ApiResponseException(statusCode: response.statusCode);
     }

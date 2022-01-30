@@ -5,8 +5,8 @@ import 'package:tvseries_app/features/show/domain/entities/show_filter.dart';
 import 'package:tvseries_app/features/show/domain/entities/show_item.dart';
 import 'package:tvseries_app/features/show/presentation/bloc/show_bloc.dart';
 
-abstract class ShowRepository {
-  Future<Either<Failure, List<ShowItem>>> search(ShowFilter showFilter);
-  Future<Either<Failure, ShowItem>> getShow(String id);
-  Future<Either<Failure, List<Episode>>> getEpisodes(String id);
+abstract class AuthRepository {
+  Future<Either<Failure, List<String>>> getFavorites();
+  Future<Either<Failure, bool>> saveFavorite(String id);
+  Future<Either<Failure, bool>> deleteFavorite(String id);
 }

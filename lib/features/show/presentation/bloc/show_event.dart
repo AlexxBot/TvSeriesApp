@@ -12,6 +12,11 @@ class SearchShowsEvent extends ShowEvent {
   const SearchShowsEvent({required this.filter});
 }
 
+class GetShowEvent extends ShowEvent {
+  final String id;
+  const GetShowEvent({required this.id});
+}
+
 class GetEpisodeListEvent extends ShowEvent {
   final String id;
   const GetEpisodeListEvent({required this.id});

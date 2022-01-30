@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tvseries_app/core/global/size_constants.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(136, 14, 79, .1),
@@ -40,31 +41,26 @@ const thirdColor = Color(0xFF5A5A5A);
 const itemListColor = Color(0XFFEEEEEE);
 final listBackgroundColor = Colors.grey.shade200;
 final containerBackGroundColor = /*  Color(0XDDDADADA); */ Color(0XDD383838);
-final succesfullColor = Colors.lightGreen;
-final errorColor = Colors.red;
+final errorColor = Colors.red[700];
 final inputColor = Color(0XFF75ff83);
 
 final enableInputColor = Colors.grey[50];
 final readOnlyInputColor = Color(0XFFEEEEEE);
 
-const filterBackground = Color(0xFFE5E5E5);
+const filterBackground = Colors.grey;
 
 const colorText = Colors.black;
 const colorSubtitle = Colors.grey;
-
-const backgroundContainer = Color(0XFFDADADA);
 
 MaterialColor colorCustom = MaterialColor(0XFF2D2F63, color);
 
 final darkTheme = ThemeData(
   fontFamily: 'Sora',
   primarySwatch: Colors.grey,
-  primaryColor: Colors.black,
+  primaryColor: Colors.black87,
   brightness: Brightness.dark,
   errorColor: Colors.red[800],
   backgroundColor: const Color(0xFF212121),
-  accentColor: Colors.white,
-  accentIconTheme: IconThemeData(color: Colors.black),
   dividerColor: Colors.black12,
 );
 
@@ -75,8 +71,6 @@ final lightTheme = ThemeData(
     primaryColor: /* Color(0xff3B7FFF) */ primaryColor,
     errorColor: Colors.red,
     inputDecorationTheme: InputDecorationTheme(fillColor: Colors.transparent),
-    //primaryColorDark: Color(0xAf3B7FFF),
-    accentColor: secondaryColor,
     backgroundColor: secondaryColor,
     scaffoldBackgroundColor: secondaryColor,
     buttonTheme: ButtonThemeData(
@@ -90,19 +84,18 @@ final lightTheme = ThemeData(
       backgroundColor: Colors.black38,
       shape: CircleBorder(), /* StadiumBorder() */
     ), */
-    //scaffoldBackgroundColor: /* Colors.grey[50] */ Colors.white,
-    primaryTextTheme: TextTheme(headline6: TextStyle(color: Colors.black)),
-    appBarTheme: AppBarTheme(
-        toolbarTextStyle:
-            TextStyle(backgroundColor: Colors.pink, color: Color(0XFF2D2F63)),
-        actionsIconTheme: IconThemeData(color: Color(0XFF2D2F63)),
-        iconTheme: IconThemeData(color: Color(0XFF2D2F63)),
-        brightness: Brightness.light,
-        elevation: 2,
-        /* titleTextStyle: TextStyle(
-            color: Colors.orange,
-            backgroundColor: Colors.orange,
-            decorationColor: Colors.orange), */
-        foregroundColor: Color(0Xff4D47C7),
-        backgroundColor: Colors.grey[50], //Colors.white
-        textTheme: TextTheme(bodyText1: TextStyle(color: Colors.black))));
+
+    primaryTextTheme:
+        const TextTheme(headline6: TextStyle(color: Colors.black)),
+    appBarTheme: const AppBarTheme(
+      toolbarTextStyle:
+          TextStyle(backgroundColor: Colors.pink, color: Color(0XFF2D2F63)),
+      actionsIconTheme: IconThemeData(color: Colors.white),
+      iconTheme: IconThemeData(color: Colors.white),
+      centerTitle: true,
+
+      elevation: 2,
+      titleTextStyle: TextStyle(fontSize: fontSize_l * 2),
+      foregroundColor: Color(0Xff4D47C7),
+      backgroundColor: Colors.black38, //Colors.white
+    ));

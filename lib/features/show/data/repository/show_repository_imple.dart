@@ -54,4 +54,22 @@ class ShowRepositoryImple implements ShowRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, ShowItem>> getShow(String id) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final shows = await remoteDataSource.getShow(id);
+        return Right(shows);
+      } on ApiResponseException catch (m) {
+        return Left(ApiResponseFailure(message: m.message));
+      } on TimeOutException {
+        return Left(TimeOutFailure());
+      } catch (ex) {
+        return Left(ServerFailure(message: ex.toString()));
+      }
+    } else {
+      return Left(ServerFailure());
+    }
+  }
 }

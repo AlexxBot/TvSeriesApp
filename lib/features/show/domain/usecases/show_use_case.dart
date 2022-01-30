@@ -8,6 +8,8 @@ import 'package:tvseries_app/features/show/domain/repository/show_repository.dar
 abstract class UseCase {
   Future<Either<Failure, List<ShowItem>>> search(ShowFilter showFilter);
 
+  Future<Either<Failure, ShowItem>> getShow(String id);
+
   Future<Either<Failure, List<Episode>>> getEpisodes(String id);
 }
 
@@ -23,5 +25,10 @@ class ShowUseCase implements UseCase {
   @override
   Future<Either<Failure, List<Episode>>> getEpisodes(String id) async {
     return await repository.getEpisodes(id);
+  }
+
+  @override
+  Future<Either<Failure, ShowItem>> getShow(String id) async {
+    return await repository.getShow(id);
   }
 }

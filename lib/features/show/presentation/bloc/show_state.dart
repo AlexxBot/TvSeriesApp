@@ -16,6 +16,11 @@ class ShowsListedState extends ShowState {
   const ShowsListedState({required this.list});
 }
 
+class RetrivedState extends ShowState {
+  final ShowItem show;
+  const RetrivedState({required this.show});
+}
+
 class EpisodesListedState extends ShowState {
   final List<Episode> list;
   const EpisodesListedState({required this.list});
