@@ -56,4 +56,49 @@ class AuthRepositoryImple implements AuthRepository {
       return Left(ServerFailure(message: "Failure in Cache"));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> existFavorite(String id) async {
+    try {
+      final exist = await localDataSource.existFavorite(id);
+      return Right(exist);
+    } on ApiResponseException catch (m) {
+      return Left(ApiResponseFailure(message: m.message));
+    } on TimeOutException {
+      return Left(
+          TimeOutFailure(/* message: 'aqui el mensaje que quieras cambiar' */));
+    } catch (ex) {
+      return Left(ServerFailure(message: "Failure in Cache"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> getPin() async {
+    try {
+      final pin = await localDataSource.getPin();
+      return Right(pin);
+    } on ApiResponseException catch (m) {
+      return Left(ApiResponseFailure(message: m.message));
+    } on TimeOutException {
+      return Left(
+          TimeOutFailure(/* message: 'aqui el mensaje que quieras cambiar' */));
+    } catch (ex) {
+      return Left(ServerFailure(message: "Failure in Cache"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> setPin(String pin) async {
+    try {
+      final pinRetrived = await localDataSource.setPin(pin);
+      return Right(pinRetrived);
+    } on ApiResponseException catch (m) {
+      return Left(ApiResponseFailure(message: m.message));
+    } on TimeOutException {
+      return Left(
+          TimeOutFailure(/* message: 'aqui el mensaje que quieras cambiar' */));
+    } catch (ex) {
+      return Left(ServerFailure(message: "Failure in Cache"));
+    }
+  }
 }

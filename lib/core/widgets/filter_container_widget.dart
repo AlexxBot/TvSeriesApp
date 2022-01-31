@@ -25,7 +25,8 @@ class FilterContainerWidget extends StatelessWidget {
       ),
       elevation: 5,
       color: filterBackground,
-      margin: const EdgeInsets.symmetric(vertical: 0, horizontal: hspace_s),
+      margin:
+          const EdgeInsets.symmetric(vertical: vspace_s, horizontal: hspace_s),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 0, horizontal: hspace_s),
         child: child,

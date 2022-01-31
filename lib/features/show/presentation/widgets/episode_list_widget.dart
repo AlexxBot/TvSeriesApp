@@ -1,6 +1,7 @@
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:flutter/material.dart';
 import 'package:tvseries_app/core/global/size_constants.dart';
+import 'package:tvseries_app/core/global/theme_data.dart';
 import 'package:tvseries_app/core/widgets/paragraph_widget.dart';
 import 'package:tvseries_app/core/widgets/text_widget.dart';
 import 'package:tvseries_app/features/show/domain/entities/episode.dart';
@@ -16,7 +17,7 @@ class EpisodeListWidget extends StatefulWidget {
 }
 
 class _EpisodeListWidgetState extends State<EpisodeListWidget>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   List<Widget> _seasons = [];
   late TabController _tabController;
   late final _seasonsCount;
@@ -68,10 +69,16 @@ class _EpisodeListWidgetState extends State<EpisodeListWidget>
           width: 20,
           color: Colors.red,
         ) */
-          Scrollbar(
-            child: SingleChildScrollView(
-              child: Wrap(
-                children: [],
+          Container(
+            decoration: BoxDecoration(
+                color: filterBackground.withOpacity(0.2),
+                borderRadius:
+                    const BorderRadius.all(Radius.circular(borderRadiusInput))),
+            child: Scrollbar(
+              child: SingleChildScrollView(
+                child: Wrap(
+                  children: [],
+                ),
               ),
             ),
           ),
@@ -91,11 +98,13 @@ class _EpisodeListWidgetState extends State<EpisodeListWidget>
               ) */
             ],
           )); */
-      (((_tabsBarView[widget.episodeList[i].season - 1] as Scrollbar).child
-                  as SingleChildScrollView)
+      ((((_tabsBarView[widget.episodeList[i].season - 1] as Container).child
+                      as Scrollbar)
+                  .child as SingleChildScrollView)
               .child as Wrap)
           .children
           .add(ExpansionTile(
+            collapsedIconColor: Colors.white,
             maintainState: true,
             childrenPadding: const EdgeInsets.only(left: hspace_xxl * 2),
             title: ListTile(
@@ -165,4 +174,7 @@ class _EpisodeListWidgetState extends State<EpisodeListWidget>
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

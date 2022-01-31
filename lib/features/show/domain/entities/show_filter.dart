@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class ShowFilter {
   final String name;
   ShowFilter({this.name = ''});

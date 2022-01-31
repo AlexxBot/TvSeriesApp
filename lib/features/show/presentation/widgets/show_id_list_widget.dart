@@ -13,7 +13,11 @@ class ShowIdListWidget extends StatefulWidget {
   State<ShowIdListWidget> createState() => _ShowIdListWidgetState();
 }
 
-class _ShowIdListWidgetState extends State<ShowIdListWidget> {
+class _ShowIdListWidgetState extends State<ShowIdListWidget>
+    with
+        AutomaticKeepAliveClientMixin,
+        TickerProviderStateMixin,
+        SingleTickerProviderStateMixin {
   int pageNum = 1;
   bool isPageLoading = false;
   late ScrollController controller;
@@ -35,30 +39,24 @@ class _ShowIdListWidgetState extends State<ShowIdListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      child: /* ListView.builder(
-      itemCount: widget.showList.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-            title: Text(
-          widget.showList[index].name,
-        ));
-      },
-    ) */
-          GridView.builder(
-              padding: const EdgeInsets.symmetric(
-                  vertical: vspace_m, horizontal: hspace_m),
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 3 / 4.5,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 10),
-              itemCount: widget.showIdList.length,
-              itemBuilder: (BuildContext ctx, index) {
-                return ShowIdItemWidget(
-                  showId: widget.showIdList[index],
-                );
-              }),
-    );
+    return GridView.builder(
+        controller: controller,
+        cacheExtent: 1000,
+        padding: const EdgeInsets.symmetric(
+            vertical: vspace_m, horizontal: hspace_m),
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200,
+            childAspectRatio: 3 / 4.5,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 10),
+        itemCount: widget.showIdList.length,
+        itemBuilder: (BuildContext ctx, index) {
+          return ShowIdItemWidget(
+            showId: widget.showIdList[index],
+          );
+        });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

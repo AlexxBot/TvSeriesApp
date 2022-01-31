@@ -24,11 +24,11 @@ class ShowBloc extends Bloc<ShowEvent, ShowState> {
       yield* _eitherListedOrErrorState(failureOrSearched);
     }
 
-    /* if (event is GetEpisodeListEvent) {
+    if (event is GetEpisodeListEvent) {
       yield LoadingState();
       final failureOrEpisodesGetted = await showUseCase.getEpisodes(event.id);
       yield* _eitherEpisodesRetrivedOrErrorState(failureOrEpisodesGetted);
-    } */
+    }
 
     if (event is GetShowEvent) {
       yield LoadingState();
@@ -44,12 +44,12 @@ class ShowBloc extends Bloc<ShowEvent, ShowState> {
         (showList) => ShowsListedState(list: showList));
   }
 
-  /* Stream<ShowState> _eitherEpisodesRetrivedOrErrorState(
+  Stream<ShowState> _eitherEpisodesRetrivedOrErrorState(
       Either<Failure, List<Episode>> failureOrListed) async* {
     yield failureOrListed.fold(
         (failure) => ErrorState(message: failure.message),
         (episodeList) => EpisodesListedState(list: episodeList));
-  } */
+  }
 
   Stream<ShowState> _eitherRetrivedOrErrorState(
       Either<Failure, ShowItem> failureOrListed) async* {

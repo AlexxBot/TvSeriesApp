@@ -26,7 +26,7 @@ class ShowItem {
         genres: (show['genres'] ?? []).cast<String>(),
         scheduleTime: schedule['time'] ?? '',
         scheduleDays: (schedule['days'] ?? []).cast<String>(),
-        imageUrl: image['medium'] ?? '',
+        imageUrl: image['original'] ?? '',
         summary: show['summary'] ?? '');
   }
 

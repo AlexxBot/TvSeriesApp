@@ -8,6 +8,12 @@ abstract class UseCase {
   Future<Either<Failure, bool>> saveFavorite(String id);
 
   Future<Either<Failure, bool>> deleteFavorite(String id);
+
+  Future<Either<Failure, bool>> existFavorite(String id);
+
+  Future<Either<Failure, String>> getPin();
+
+  Future<Either<Failure, bool>> setPin(String pin);
 }
 
 class AuthUseCase implements UseCase {
@@ -26,6 +32,21 @@ class AuthUseCase implements UseCase {
 
   @override
   Future<Either<Failure, bool>> deleteFavorite(String id) async {
-    return await repository.saveFavorite(id);
+    return await repository.deleteFavorite(id);
+  }
+
+  @override
+  Future<Either<Failure, bool>> existFavorite(String id) async {
+    return await repository.existFavorite(id);
+  }
+
+  @override
+  Future<Either<Failure, String>> getPin() async {
+    return await repository.getPin();
+  }
+
+  @override
+  Future<Either<Failure, bool>> setPin(String pin) async {
+    return await repository.setPin(pin);
   }
 }

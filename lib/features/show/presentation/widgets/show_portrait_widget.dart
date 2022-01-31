@@ -1,14 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tvseries_app/core/global/size_constants.dart';
+import 'package:tvseries_app/core/global/theme_data.dart';
 import 'package:tvseries_app/core/widgets/paragraph_widget.dart';
 import 'package:tvseries_app/core/widgets/text_widget.dart';
+import 'package:tvseries_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:tvseries_app/features/show/domain/entities/show_item.dart';
 import 'package:tvseries_app/features/show/presentation/widgets/image_widget.dart';
 
-class ShowPortraitWidget extends StatelessWidget {
+class ShowPortraitWidget extends StatefulWidget {
   final ShowItem showItem;
   const ShowPortraitWidget({Key? key, required this.showItem})
       : super(key: key);
+
+  @override
+  State<ShowPortraitWidget> createState() => _ShowPortraitWidgetState();
+}
+
+class _ShowPortraitWidgetState extends State<ShowPortraitWidget> {
+  late AuthBloc _authBloc;
+
+  late bool _isFavorite;
+
+  @override
+  void initState() {
+    super.initState();
+    _authBloc = BlocProvider.of<AuthBloc>(context);
+    _isFavorite = false;
+    _authBloc.add(ExistFavoriteEvent(id: widget.showItem.id.toString()));
+  }
+
+  void _addToFavorites() {
+    if (_isFavorite) {
+      _authBloc.add(DeleteFavoriteEvent(id: widget.showItem.id.toString()));
+    } else {
+      _authBloc.add(SaveFavoriteEvent(id: widget.showItem.id.toString()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +59,10 @@ class ShowPortraitWidget extends StatelessWidget {
         )); */
         Container(
       decoration: BoxDecoration(
-        image: showItem.imageUrl != null
+        image: widget.showItem.imageUrl != null
             ? DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(showItem.imageUrl!),
+                image: NetworkImage(widget.showItem.imageUrl!),
                 colorFilter: ColorFilter.mode(
                     Colors.black.withOpacity(0.5), BlendMode.dstATop),
               )
@@ -56,21 +84,66 @@ class ShowPortraitWidget extends StatelessWidget {
                       padding: const EdgeInsets.all(0),
                       elevation: 5,
                       label: TextWidget(
-                        showItem.genres[index],
+                        widget.showItem.genres[index],
                         fontSize: fontSize_s,
                         color: Colors.black,
                       )),
                 );
               },
-              itemCount: showItem.genres.length,
+              itemCount: widget.showItem.genres.length,
             ),
           ),
           Row(
             children: [
-              ImageWidget(
+              /* ImageWidget(
                 imageUrl: showItem.imageUrl,
                 height: 200,
                 width: 150,
+              ), */
+              Stack(
+                children: [
+                  ImageWidget(
+                      imageUrl: widget.showItem.imageUrl,
+                      height: 200,
+                      width: 150),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: BlocListener<AuthBloc, AuthState>(
+                      listener: (context, state) {
+                        if (state is FavoriteExistState) {
+                          if (state.id == widget.showItem.id.toString()) {
+                            _isFavorite = state.exist;
+                          }
+                        }
+                        if (state is FavoriteSavedState) {
+                          if (state.id == widget.showItem.id.toString()) {
+                            if (state.saved) _isFavorite = true;
+                            /* SnackWidget.showMessage(
+                              context, 'Added to favorites'); */
+                          }
+                        }
+                        if (state is FavoriteDeletedState) {
+                          if (state.id == widget.showItem.id.toString()) {
+                            if (state.deleted) _isFavorite = false;
+                            /* SnackWidget.showMessage(
+                              context, 'Deleted from favorites'); */
+                          }
+                        }
+                      },
+                      child: BlocBuilder<AuthBloc, AuthState>(
+                        builder: (context, state) {
+                          return IconButton(
+                              onPressed: _addToFavorites,
+                              icon: Icon(
+                                Icons.favorite,
+                                color:
+                                    _isFavorite ? errorColor : filterBackground,
+                              ));
+                        },
+                      ),
+                    ),
+                  )
+                ],
               ),
               Expanded(
                 child: Column(
@@ -78,20 +151,20 @@ class ShowPortraitWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ParagraphWidget(
-                      showItem.summary,
+                      widget.showItem.summary,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: vspace_s, horizontal: hspace_s),
                       child: Row(
                         children: [
-                          TextWidget('time: ${showItem.scheduleTime}'),
+                          TextWidget('time: ${widget.showItem.scheduleTime}'),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: vspace_s, horizontal: hspace_s),
                             child: SingleChildScrollView(
                                 child: Row(
-                              children: showItem.scheduleDays
+                              children: widget.showItem.scheduleDays
                                   .map((e) => Chip(
                                           label: TextWidget(
                                         e,

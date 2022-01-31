@@ -95,7 +95,7 @@ final lightTheme = ThemeData(
       centerTitle: true,
 
       elevation: 2,
-      titleTextStyle: TextStyle(fontSize: fontSize_l * 2),
+      titleTextStyle: TextStyle(fontSize: fontSize_m * 2),
       foregroundColor: Color(0Xff4D47C7),
       backgroundColor: Colors.black38, //Colors.white
     ));

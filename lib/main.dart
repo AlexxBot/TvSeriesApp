@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'app.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/provider/theme_provider.dart';
+import 'features/person/presentation/bloc/person_bloc.dart';
 import 'features/show/presentation/bloc/show_bloc.dart';
 import 'injections.dart';
 import 'injections.dart' as di;
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider<AuthBloc>(create: (context) => sl<AuthBloc>()),
           BlocProvider<ShowBloc>(create: (context) => sl<ShowBloc>()),
+          BlocProvider<PersonBloc>(create: (context) => sl<PersonBloc>()),
         ],
         child: ChangeNotifierProvider<ThemeProvider>(
             create: (context) => ThemeProvider(),

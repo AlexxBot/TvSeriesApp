@@ -23,7 +23,13 @@ class ImageWidget extends StatelessWidget {
             height: 0,
             width: 0,
           )
-        : Container(
+        : /*  Expanded(
+            child: FittedBox(
+              child: Image.network(imageUrl!),
+              fit: BoxFit.fill,
+            ),
+          ); */
+        Container(
             padding: const EdgeInsets.symmetric(
                 vertical: vspace_s, horizontal: hspace_m),
             height: height,
@@ -42,13 +48,19 @@ class ImageWidget extends StatelessWidget {
                     ? DecorationImage(
                         //filterQuality: FilterQuality.high,
                         //scale: scale,
-                        fit: BoxFit.fill,
+
+                        fit: BoxFit.cover,
                         image: NetworkImage(imageUrl!))
                     : null,
-                color: Colors.black,
+                //color: Colors.white,
                 borderRadius:
                     const BorderRadius.all(Radius.circular(borderRadiusInput))),
-            //child: Image.network(showItem.imageUrl ?? ''),
+            /* child: imageUrl != null
+                ? Image.network(
+                    imageUrl ?? '',
+                    fit: BoxFit.fitHeight,
+                  )
+                : null, */
           );
   }
 }

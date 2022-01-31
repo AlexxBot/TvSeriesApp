@@ -9,6 +9,11 @@ import 'features/auth/data/repository/auth_repository_imple.dart';
 import 'features/auth/domain/repository/auth_repository.dart';
 import 'features/auth/domain/usecases/auth_use_case.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
+import 'features/person/data/datasources/person_remote_data.dart';
+import 'features/person/data/repository/person_repository_imple.dart';
+import 'features/person/domain/repository/person_repository.dart';
+import 'features/person/domain/usecases/person_use_case.dart';
+import 'features/person/presentation/bloc/person_bloc.dart';
 import 'features/show/data/datasources/show_remote_data.dart';
 import 'features/show/data/repository/show_repository_imple.dart';
 import 'features/show/domain/repository/show_repository.dart';
@@ -25,9 +30,11 @@ Future<void> init() async {
   //Blocs -----------------------------------------
   sl.registerFactory(() => AuthBloc(authUseCase: sl()));
   sl.registerFactory(() => ShowBloc(showUseCase: sl()));
+  sl.registerFactory(() => PersonBloc(personUseCase: sl()));
 
   sl.registerLazySingleton(() => AuthUseCase(sl()));
   sl.registerLazySingleton(() => ShowUseCase(sl()));
+  sl.registerLazySingleton(() => PersonUseCase(sl()));
 
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImple(localDataSource: sl()),
@@ -36,11 +43,18 @@ Future<void> init() async {
     () => ShowRepositoryImple(remoteDataSource: sl(), networkInfo: sl()),
   );
 
+  sl.registerLazySingleton<PersonRepository>(
+    () => PersonRepositoryImple(remoteDataSource: sl(), networkInfo: sl()),
+  );
+
   sl.registerLazySingleton<AuthLocalData>(
     () => AuthLocalDataImple(),
   );
   sl.registerLazySingleton<ShowRemoteData>(
     () => ShowRemoteDataImple(client: sl()),
+  );
+  sl.registerLazySingleton<PersonRemoteData>(
+    () => PersonRemoteDataImple(client: sl()),
   );
 
   sl.registerLazySingleton(() => Headers());

@@ -4,6 +4,8 @@ import 'package:tvseries_app/core/global/size_constants.dart';
 import 'package:tvseries_app/core/global/theme_data.dart';
 import 'package:tvseries_app/core/widgets/custom_page_route.dart';
 import 'package:tvseries_app/core/widgets/text_widget.dart';
+import 'package:tvseries_app/features/auth/presentation/bloc/auth_bloc.dart'
+    as authbloc;
 import 'package:tvseries_app/features/show/domain/entities/show_item.dart';
 import 'package:tvseries_app/features/show/presentation/bloc/show_bloc.dart';
 import 'package:tvseries_app/features/show/presentation/pages/show_detail_page.dart';
@@ -18,81 +20,72 @@ class ShowIdItemWidget extends StatefulWidget {
   State<ShowIdItemWidget> createState() => _ShowIdItemWidgetState();
 }
 
-class _ShowIdItemWidgetState extends State<ShowIdItemWidget> {
+class _ShowIdItemWidgetState extends State<ShowIdItemWidget>
+    with
+        AutomaticKeepAliveClientMixin,
+        TickerProviderStateMixin,
+        SingleTickerProviderStateMixin {
   late final ShowBloc _showBloc;
+  late final authbloc.AuthBloc _authBloc;
   late ShowItem _showItem;
+
+  late bool _isFavorite;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _isFavorite = false;
     _showItem = ShowItem(id: 0, name: '');
     _showBloc = BlocProvider.of<ShowBloc>(context);
+    _authBloc = BlocProvider.of<authbloc.AuthBloc>(context);
     _showBloc.add(GetShowEvent(id: widget.showId));
   }
-
-  void _goToDetail(BuildContext context) {
-    Navigator.of(context)
-        .push(CustomPageRoute(ShowDetailPage(showItem: _showItem)));
-  }
-
-  void _addToFavorites() {}
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<ShowBloc, ShowState>(
       listener: (context, state) {
         if (state is RetrivedState) {
-          if (state.show.id.toString() == widget.showId) _showItem = state.show;
+          if (state.show.id.toString() == widget.showId) {
+            _showItem = state.show;
+          }
         }
       },
       child: BlocBuilder<ShowBloc, ShowState>(
         builder: (context, state) {
-          if (state is LoadingState) {
+          if (/* state is RetrivedState &&  */ _showItem.id != 0) {
+            return ShowItemWidget(
+              showItem: _showItem,
+              favoriteInitialValue: true,
+            );
+          } else if (state is authbloc.ErrorState) {
             return Container(
               height: 200,
               width: 150,
-              child: Center(
+              child: const Center(child: TextWidget('Api exception')),
+            );
+          }
+          if (/* state is RetrivedState &&  */ _showItem.id != 0) {
+            return ShowItemWidget(
+              showItem: _showItem,
+              favoriteInitialValue: true,
+            );
+          } else {
+            return Container(
+              height: 200,
+              width: 150,
+              child: const Center(
                 child: CircularProgressIndicator(),
               ),
             );
-          } else
-            return InkWell(
-              onTap: () {
-                _goToDetail(context);
-              },
-              child: FittedBox(
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        ImageWidget(
-                            imageUrl: _showItem.imageUrl,
-                            height: 200,
-                            width: 150),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: IconButton(
-                              onPressed: _addToFavorites,
-                              icon: const Icon(
-                                Icons.favorite,
-                                color: Colors.white,
-                              )),
-                        )
-                      ],
-                    ),
-                    //Image.network(showItem.imageUrl ?? ''),
-                    TextWidget(
-                      _showItem.name,
-                      fontSize: fontSize_l,
-                      color: textColor,
-                    ),
-                  ],
-                ),
-              ),
-            );
+          }
         },
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
