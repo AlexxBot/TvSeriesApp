@@ -19,6 +19,7 @@ class _ConfigPageState extends State<ConfigPage> {
   late final AuthBloc authBloc;
 
   final _pinNumber = TextEditingController(text: "");
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -28,7 +29,11 @@ class _ConfigPageState extends State<ConfigPage> {
   }
 
   void _setPin() {
-    authBloc.add(SetPinEvent(pinNumber: _pinNumber.text));
+    if (!_formKey.currentState!.validate()) {
+      SnackWidget.showMessage(context, 'Invalidate Pin Number');
+    } else {
+      authBloc.add(SetPinEvent(pinNumber: _pinNumber.text));
+    }
   }
 
   @override
@@ -55,6 +60,7 @@ class _ConfigPageState extends State<ConfigPage> {
             }
           },
           child: Form(
+            key: _formKey,
             child: Column(
               children: [
                 Padding(
