@@ -29,7 +29,7 @@ class _ShowFavoritePageState extends State<ShowFavoritePage> {
     _getFavorites();
   }
 
-  void _getFavorites() {
+  Future<void> _getFavorites() async {
     _authBloc.add(const GetFavoritesEvent());
   }
 
@@ -74,28 +74,31 @@ class _ShowFavoritePageState extends State<ShowFavoritePage> {
                 ),
               )),
               Expanded(
-                  child: BlocListener<AuthBloc, AuthState>(
+                  child: RefreshIndicator(
+                onRefresh: () => _getFavorites(),
+                child: BlocListener<AuthBloc, AuthState>(
+                    bloc: _authBloc,
+                    listener: (context, state) {
+                      if (state is FavoritesRetrivedState) {
+                        _idList = state.idList;
+                      }
+                      if (state is ErrorState) {
+                        SnackWidget.showMessage(context, state.message,
+                            isError: true);
+                      }
+                    },
+                    child: BlocBuilder<AuthBloc, AuthState>(
                       bloc: _authBloc,
-                      listener: (context, state) {
-                        if (state is FavoritesRetrivedState) {
-                          _idList = state.idList;
-                        }
-                        if (state is ErrorState) {
-                          SnackWidget.showMessage(context, state.message,
-                              isError: true);
+                      builder: (context, state) {
+                        if (state is LoadingState) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else {
+                          return ShowIdListWidget(showIdList: _idList);
                         }
                       },
-                      child: BlocBuilder<AuthBloc, AuthState>(
-                        bloc: _authBloc,
-                        builder: (context, state) {
-                          if (state is LoadingState) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          } else {
-                            return ShowIdListWidget(showIdList: _idList);
-                          }
-                        },
-                      )))
+                    )),
+              ))
             ],
           ),
         ),

@@ -5,6 +5,7 @@ import 'package:tvseries_app/core/error/failures.dart';
 import 'package:tvseries_app/features/person/domain/entities/person.dart';
 import 'package:tvseries_app/features/person/domain/entities/person_filter.dart';
 import 'package:tvseries_app/features/person/domain/usecases/person_use_case.dart';
+import 'package:tvseries_app/features/show/domain/entities/show_item.dart';
 
 part 'person_event.dart';
 part 'person_state.dart';
@@ -23,11 +24,11 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
       yield* _eitherListedOrErrorState(failureOrSearched);
     }
 
-    /* if (event is GetEpisodeListEvent) {
+    if (event is GetShowListEvent) {
       yield LoadingState();
-      final failureOrEpisodesGetted = await personUseCase.getEpisodes(event.id);
-      yield* _eitherEpisodesRetrivedOrErrorState(failureOrEpisodesGetted);
-    } */
+      final failureOrEpisodesGetted = await personUseCase.getShows(event.id);
+      yield* _eitherShowsRetrivedOrErrorState(failureOrEpisodesGetted);
+    }
 
     if (event is GetPersonEvent) {
       yield LoadingState();
@@ -43,12 +44,12 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
         (personList) => PersonsListedState(list: personList));
   }
 
-  /* Stream<PersonState> _eitherEpisodesRetrivedOrErrorState(
-      Either<Failure, List<Episode>> failureOrListed) async* {
+  Stream<PersonState> _eitherShowsRetrivedOrErrorState(
+      Either<Failure, List<ShowItem>> failureOrListed) async* {
     yield failureOrListed.fold(
         (failure) => ErrorState(message: failure.message),
-        (episodeList) => EpisodesListedState(list: episodeList));
-  } */
+        (episodeList) => ShowsListedState(list: episodeList));
+  }
 
   Stream<PersonState> _eitherRetrivedOrErrorState(
       Either<Failure, Person> failureOrListed) async* {

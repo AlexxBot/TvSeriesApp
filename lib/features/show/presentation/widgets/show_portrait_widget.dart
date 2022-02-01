@@ -153,30 +153,59 @@ class _ShowPortraitWidgetState extends State<ShowPortraitWidget> {
                     ParagraphWidget(
                       widget.showItem.summary,
                     ),
-                    Padding(
+                    /* Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: vspace_s, horizontal: hspace_s),
-                      child: Row(
-                        children: [
-                          TextWidget('time: ${widget.showItem.scheduleTime}'),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: vspace_s, horizontal: hspace_s),
+                      child:  */
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        TextWidget('time: ${widget.showItem.scheduleTime}'),
+                        /* Expanded(
                             child: SingleChildScrollView(
-                                child: Row(
-                              children: widget.showItem.scheduleDays
-                                  .map((e) => Chip(
-                                          label: TextWidget(
-                                        e,
-                                        fontSize: fontSize_s,
-                                        color: Colors.black,
-                                      )))
-                                  .toList(),
-                            )),
-                          )
-                        ],
-                      ),
-                    )
+                          scrollDirection: Axis.horizontal,
+                          child: Column(
+                            children: [
+                              Container(
+                                width: 50,
+                              ),
+                              Container(
+                                width: 50,
+                              ),
+                              Container(
+                                width: 50,
+                              ),
+                              Container(
+                                width: 50,
+                              ),
+                              Container(
+                                color: Colors.red,
+                                width: 50,
+                              ),
+                            ],
+                          ),
+                        )) */
+                        Expanded(
+                            child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: vspace_s, horizontal: hspace_s),
+                          child: Row(
+                            children: widget.showItem.scheduleDays
+                                .map((e) => Padding(
+                                    padding: const EdgeInsets.all(vspace_s),
+                                    child: Chip(
+                                        label: TextWidget(
+                                      e,
+                                      fontSize: fontSize_s,
+                                      color: Colors.black,
+                                    ))))
+                                .toList(),
+                          ),
+                        ))
+                      ],
+                    ),
+                    /* ) */
                     /* Html(
                       data: showItem.summary,
                       style: {'p': Style(color: Colors.white)},

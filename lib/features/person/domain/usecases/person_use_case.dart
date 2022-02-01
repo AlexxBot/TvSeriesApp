@@ -10,7 +10,7 @@ abstract class UseCase {
 
   Future<Either<Failure, Person>> getPerson(String id);
 
-  //Future<Either<Failure, List<ShowItem>>> getSeries(String id);
+  Future<Either<Failure, List<ShowItem>>> getShows(String id);
 }
 
 class PersonUseCase implements UseCase {
@@ -23,10 +23,10 @@ class PersonUseCase implements UseCase {
     return await repository.search(personFilter);
   }
 
-  /* @override
-  Future<Either<Failure, List<Episode>>> getEpisodes(String id) async {
-    return await repository.getEpisodes(id);
-  } */
+  @override
+  Future<Either<Failure, List<ShowItem>>> getShows(String id) async {
+    return await repository.getShows(id);
+  }
 
   @override
   Future<Either<Failure, Person>> getPerson(String id) async {

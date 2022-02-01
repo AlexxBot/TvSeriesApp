@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tvseries_app/core/global/size_constants.dart';
 import 'package:tvseries_app/features/person/domain/entities/person.dart';
-import 'package:tvseries_app/features/person/presentation/pages/person_item_widget.dart';
+import 'package:tvseries_app/features/person/presentation/widgets/person_item_widget.dart';
 
 class PersonListWidget extends StatefulWidget {
   final List<Person> personList;

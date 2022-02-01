@@ -6,6 +6,7 @@ import 'package:tvseries_app/core/widgets/custom_page_route.dart';
 import 'package:tvseries_app/core/widgets/text_widget.dart';
 import 'package:tvseries_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:tvseries_app/features/person/domain/entities/person.dart';
+import 'package:tvseries_app/features/person/presentation/pages/person_detail_page.dart';
 import 'package:tvseries_app/features/show/presentation/widgets/image_widget.dart';
 
 class PersonItemWidget extends StatefulWidget {
@@ -32,24 +33,24 @@ class _PersonItemWidgetState extends State<PersonItemWidget> {
     _authBloc.add(ExistFavoriteEvent(id: widget.person.id.toString()));
   }
 
-  /* void _goToDetail(BuildContext context) {
+  void _goToDetail(BuildContext context) {
     Navigator.of(context)
         .push(CustomPageRoute(PersonDetailPage(person: widget.person)));
-  } */
+  }
 
-  void _addToFavorites() {
+  /* void _addToFavorites() {
     if (_isFavorite) {
       _authBloc.add(DeleteFavoriteEvent(id: widget.person.id.toString()));
     } else {
       _authBloc.add(SaveFavoriteEvent(id: widget.person.id.toString()));
     }
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //_goToDetail(context);
+        _goToDetail(context);
       },
       child: FittedBox(
         child: Column(
@@ -58,43 +59,6 @@ class _PersonItemWidgetState extends State<PersonItemWidget> {
               children: [
                 ImageWidget(
                     imageUrl: widget.person.imageUrl, height: 200, width: 150),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: BlocListener<AuthBloc, AuthState>(
-                    listener: (context, state) {
-                      if (state is FavoriteExistState) {
-                        if (state.id == widget.person.id.toString()) {
-                          _isFavorite = state.exist;
-                        }
-                      }
-                      if (state is FavoriteSavedState) {
-                        if (state.id == widget.person.id.toString()) {
-                          if (state.saved) _isFavorite = true;
-                          /* SnackWidget.personMessage(
-                              context, 'Added to favorites'); */
-                        }
-                      }
-                      if (state is FavoriteDeletedState) {
-                        if (state.id == widget.person.id.toString()) {
-                          if (state.deleted) _isFavorite = false;
-                          /* SnackWidget.personMessage(
-                              context, 'Deleted from favorites'); */
-                        }
-                      }
-                    },
-                    child: BlocBuilder<AuthBloc, AuthState>(
-                      builder: (context, state) {
-                        return IconButton(
-                            onPressed: _addToFavorites,
-                            icon: Icon(
-                              Icons.favorite,
-                              color:
-                                  _isFavorite ? errorColor : filterBackground,
-                            ));
-                      },
-                    ),
-                  ),
-                )
               ],
             ),
             //Image.network(person.imageUrl ?? ''),

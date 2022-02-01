@@ -15,7 +15,7 @@ import 'package:tvseries_app/injections.dart';
 abstract class PersonRemoteData {
   Future<List<Person>> search(PersonFilter showFilter);
   Future<Person> getPerson(String id);
-  //Future<List<Episode>> getEpisodes(String id);
+  Future<List<ShowItem>> getShows(String id);
 }
 
 class PersonRemoteDataImple implements PersonRemoteData {
@@ -43,7 +43,7 @@ class PersonRemoteDataImple implements PersonRemoteData {
 
   @override
   Future<Person> getPerson(String id) async {
-    final uri = Uri.parse('${sl<NetworkInfo>().url}/$shows/$id');
+    final uri = Uri.parse('${sl<NetworkInfo>().url}/$person/$id');
     final response = await client
         .get(uri, headers: sl<Headers>().headers)
         .timeout(const Duration(seconds: timeout),
@@ -57,20 +57,22 @@ class PersonRemoteDataImple implements PersonRemoteData {
     }
   }
 
-  /* @override
-  Future<List<Episode>> getEpisodes(String id) async {
-    final uri = Uri.parse('${sl<NetworkInfo>().url}/$shows/$id/episodes');
+  @override
+  Future<List<ShowItem>> getShows(String id) async {
+    final uri = Uri.parse(
+        '${sl<NetworkInfo>().url}/$person/$id/castcredits?embed=show');
     final response = await client
         .get(uri, headers: sl<Headers>().headers)
         .timeout(const Duration(seconds: timeout),
             onTimeout: () => throw TimeOutException());
     if (response.statusCode == 200) {
       final listJson = jsonDecode(response.body);
-      final list =
-          listJson.map<Episode>((show) => Episode.fromJson(show)).toList();
+      final list = listJson
+          .map<ShowItem>((show) => ShowItem.fromJsonCastCredits(show))
+          .toList();
       return list;
     } else {
       throw ApiResponseException(statusCode: response.statusCode);
     }
-  } */
+  }
 }

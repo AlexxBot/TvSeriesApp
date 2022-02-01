@@ -9,7 +9,7 @@ import 'package:tvseries_app/features/auth/presentation/pages/menu_page.dart';
 import 'package:tvseries_app/features/person/domain/entities/person.dart';
 import 'package:tvseries_app/features/person/domain/entities/person_filter.dart';
 import 'package:tvseries_app/features/person/presentation/bloc/person_bloc.dart';
-import 'package:tvseries_app/features/person/presentation/pages/person_list_widget.dart';
+import 'package:tvseries_app/features/person/presentation/widgets/person_list_widget.dart';
 import 'package:tvseries_app/router.dart';
 
 class PersonPage extends StatefulWidget {

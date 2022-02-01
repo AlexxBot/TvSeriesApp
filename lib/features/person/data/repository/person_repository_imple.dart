@@ -7,6 +7,7 @@ import 'package:tvseries_app/features/person/domain/entities/person.dart';
 import 'package:tvseries_app/features/person/domain/entities/person_filter.dart';
 
 import 'package:tvseries_app/features/person/domain/repository/person_repository.dart';
+import 'package:tvseries_app/features/show/domain/entities/show_item.dart';
 
 class PersonRepositoryImple implements PersonRepository {
   final PersonRemoteData remoteDataSource;
@@ -36,13 +37,12 @@ class PersonRepositoryImple implements PersonRepository {
     }
   }
 
-  /* @override
-  Future<Either<Failure, List<Episode>>> getEpisodes(String id) async {
+  @override
+  Future<Either<Failure, List<ShowItem>>> getShows(String id) async {
     if (await networkInfo.isConnected) {
       try {
-        //await sl<Headers>().validateToken();
-        final episodes = await remoteDataSource.getEpisodes(id);
-        return Right(episodes);
+        final shows = await remoteDataSource.getShows(id);
+        return Right(shows);
       } on ApiResponseException catch (m) {
         return Left(ApiResponseFailure(message: m.message));
       } on TimeOutException {
@@ -54,7 +54,7 @@ class PersonRepositoryImple implements PersonRepository {
       return Left(ServerFailure());
     }
   }
- */
+
   @override
   Future<Either<Failure, Person>> getPerson(String id) async {
     if (await networkInfo.isConnected) {

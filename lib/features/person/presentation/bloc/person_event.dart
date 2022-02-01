@@ -17,9 +17,9 @@ class GetPersonEvent extends PersonEvent {
   const GetPersonEvent({required this.id});
 }
 
-class GetEpisodeListEvent extends PersonEvent {
+class GetShowListEvent extends PersonEvent {
   final String id;
-  const GetEpisodeListEvent({required this.id});
+  const GetShowListEvent({required this.id});
 }
 
 class GetEpisodeEvent extends PersonEvent {

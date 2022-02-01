@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class ShowItem {
   final int id;
   final String name;
@@ -41,5 +43,21 @@ class ShowItem {
         scheduleDays: (schedule['days'] ?? []).cast<String>(),
         imageUrl: image['medium'] ?? '',
         summary: json['summary'] ?? '');
+  }
+
+  factory ShowItem.fromJsonCastCredits(Map<String, dynamic> json) {
+    final embedded = json['_embedded'] ?? {};
+    final show = embedded["show"] ?? {};
+    final image = show["image"] ?? {};
+    final schedule = show['schedule'] ?? {};
+    return ShowItem(
+        id: show['id'],
+        name: show['name'] ?? '',
+        genres: (show['genres'] ?? []).cast<String>(),
+        scheduleTime: schedule['time'] ?? '',
+        scheduleDays: (schedule['days'] ?? []).cast<String>(),
+        imageUrl: image['original'] ?? '',
+        summary: show['summary'] ?? '');
+    //return ShowItem.fromJson(embedded);
   }
 }

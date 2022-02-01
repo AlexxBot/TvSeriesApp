@@ -21,10 +21,10 @@ class RetrivedState extends PersonState {
   const RetrivedState({required this.person});
 }
 
-/* class EpisodesListedState extends PersonState {
-  final List<Episode> list;
-  const EpisodesListedState({required this.list});
-} */
+class ShowsListedState extends PersonState {
+  final List<ShowItem> list;
+  const ShowsListedState({required this.list});
+}
 
 class ErrorState extends PersonState {
   final String message;
