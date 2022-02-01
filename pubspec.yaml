@@ -37,20 +37,28 @@ dependencies:
   http: ^0.13.3
   shared_preferences: ^2.0.7
   connectivity: ^3.0.6
+  #flutter_html: 
   
-
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
+  #flutter_launcher_icons: 
+
+
+flutter_icons:
+
+  image_path: "assets/images/tv.png"
+  android: true
+  ios: true
 
 flutter:
 
   uses-material-design: true
   assets: 
-    - assets/
+    - assets
     - .env
   fonts:
     - family: sora

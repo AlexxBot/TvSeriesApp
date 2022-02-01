@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+//import 'package:flutter_html/flutter_html.dart';
 import 'package:tvseries_app/core/global/size_constants.dart';
 import 'package:tvseries_app/core/global/theme_data.dart';
 import 'package:tvseries_app/core/widgets/paragraph_widget.dart';
@@ -154,11 +155,6 @@ class _ShowPortraitWidgetState extends State<ShowPortraitWidget> {
                         ],
                       ),
                     ),
-                    /* ) */
-                    /* Html(
-                      data: showItem.summary,
-                      style: {'p': Style(color: Colors.white)},
-                    ) */
                   ],
                 ),
               )

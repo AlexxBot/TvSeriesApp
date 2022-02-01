@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tvseries_app/core/widgets/text_widget.dart';
-import 'package:tvseries_app/features/auth/presentation/bloc/auth_bloc.dart'
-    as authbloc;
 import 'package:tvseries_app/features/show/domain/entities/show_item.dart';
 import 'package:tvseries_app/features/show/presentation/bloc/show_bloc.dart';
 import 'package:tvseries_app/features/show/presentation/widgets/show_item_widget.dart';

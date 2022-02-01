@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'package:flutter_html/flutter_html.dart';
 import 'package:tvseries_app/core/global/size_constants.dart';
 import 'package:tvseries_app/core/widgets/text_widget.dart';
 
@@ -21,6 +22,10 @@ class ParagraphWidget extends StatelessWidget {
         child: TextWidget(
           text,
           fontSize: fontSize,
-        ));
+        )); /* Html(
+      shrinkWrap: true,
+      data: text,
+      style: {'p': Style(color: Colors.white, fontSize: FontSize.small)},
+    ); */
   }
 }

@@ -30,7 +30,7 @@ class _ImageWidgetState extends State<ImageWidget> {
   Widget build(BuildContext context) {
     return !widget.showNull && widget.imageUrl == null
         ? const SizedBox(
-            height: 0,
+            height: 200,
             width: 0,
           )
         : Container(
@@ -48,11 +48,15 @@ class _ImageWidgetState extends State<ImageWidget> {
                       offset: const Offset(0, 3), // changes position of shadow
                     )
                 ],
-                image: widget.imageUrl != null
+                image: (widget.imageUrl != null && widget.imageUrl != '')
                     ? DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(widget.imageUrl!))
-                    : null,
+                    : const DecorationImage(
+                        opacity: 0.3,
+                        fit: BoxFit.cover,
+                        image: AssetImage('assets/images/tv.png'),
+                      ),
                 borderRadius:
                     const BorderRadius.all(Radius.circular(borderRadiusInput))),
           );

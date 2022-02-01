@@ -1,4 +1,3 @@
-import 'package:dartz/dartz_unsafe.dart';
 import 'package:flutter/material.dart';
 import 'package:tvseries_app/core/global/size_constants.dart';
 import 'package:tvseries_app/core/global/theme_data.dart';
