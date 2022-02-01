@@ -48,7 +48,7 @@ class _ShowPortraitWidgetState extends State<ShowPortraitWidget> {
                 fit: BoxFit.cover,
                 image: NetworkImage(widget.showItem.imageUrl!),
                 colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.5), BlendMode.dstATop),
+                    Colors.black.withOpacity(0.4), BlendMode.dstATop),
               )
             : null,
       ),

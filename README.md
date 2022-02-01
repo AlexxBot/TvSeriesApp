@@ -1,16 +1,22 @@
-# tvseries_app
+<!-- ### Create a ".env" file on the root proyect with the content "URL=https://cataas.com". -->
 
-A new Flutter project.
+### **About the Compilacion and debuging**
 
-## Getting Started
+### - Run command ***flutter run*** to deploy on mobile emulator or real device conected.
+### - Run command ***flutter run -d chrome*** to deploy on web.
 
-This project is a starting point for a Flutter application.
+### - Run command ***flutter build apk --split-per-abi*** to build apk and then run ***flutter install*** to install the apk in a mobile device
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### **About the Challenge**
+### 1 there are three apk options to install because depends on the mobile architecture, try one by one,
+### 2 this app was implemented with all the mandatory features
+### 3 this app was implemented with the following optional bonus:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Allow the user to set a PIN number to secure the application and prevent unauthorized
+users.
+- Allow the user to save a series as a favorite.
+- Allow the user to delete a series from the favorites list.
+- Create a people search by listing the name and image of the person.
+- After clicking on a person, the application should show the details of that person, such as name, image and Series they have participated in, with a link to the series details.
+

@@ -26,12 +26,3 @@ const fontWeightNormal = FontWeight.normal;
 const double borderRadiusModal = 15;
 const double borderRadiusInput = 10;
 const double borderRadiusFontSize = 5;
-
-const double modalRatio = 2 / 3;
-const double modalFormRatio = 3 / 4;
-const int imageQualityInitial = 40; //it goes from 0 to 100
-
-const double imageMaxHeight = 1280; //680
-const double imageMaxWidth = 960; //480
-
-const double opacityColor = 0.8;

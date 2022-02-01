@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tvseries_app/core/global/size_constants.dart';
 //import 'package:flutter_svg/svg.dart';
 
 class LogoWidget extends StatelessWidget {
@@ -7,13 +8,16 @@ class LogoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      /* SvgPicture.asset(
-        'assets/truck_back.svg',
-        matchTextDirection: true,
-        //height: 300,
-        //fit: BoxFit.contain,
-        /* color: Colors.red, semanticsLabel: 'A red up arrow' */
-      ), */
+      Container(
+          padding: const EdgeInsets.symmetric(
+              vertical: vspace_s, horizontal: hspace_m),
+          height: MediaQuery.of(context).size.width / 1.5,
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/tv.png'),
+              ),
+              borderRadius:
+                  BorderRadius.all(Radius.circular(borderRadiusInput))))
     ]);
   }
 }

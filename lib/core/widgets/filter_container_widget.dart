@@ -9,22 +9,12 @@ class FilterContainerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return /* Container(
-        margin: EdgeInsets.symmetric(vertical: vspace_s, horizontal: hspace_m),
-        padding: EdgeInsets.symmetric(vertical: vspace_s, horizontal: hspace_m),
-        decoration: BoxDecoration(
-          color: /* Theme.of(context).accentColor.withOpacity(0.05) */ filterBackground
-          /* primaryColor.withOpacity(0.2) */,
-          borderRadius: BorderRadius.circular(borderRadiusModal),
-          //shape: BoxShape.rectangle,
-        ),
-        child: this.child); */
-        Card(
+    return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadiusModal),
       ),
       elevation: 5,
-      color: filterBackground.withOpacity(0.7),
+      color: filterBackground,
       margin:
           const EdgeInsets.symmetric(vertical: vspace_s, horizontal: hspace_s),
       child: Padding(

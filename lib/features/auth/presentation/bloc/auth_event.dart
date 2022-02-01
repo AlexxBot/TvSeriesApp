@@ -26,11 +26,6 @@ class ExistFavoriteEvent extends AuthEvent {
   const ExistFavoriteEvent({required this.id});
 }
 
-/* class LoginEvent extends AuthEvent {
-  final String pin;
-  const LoginEvent({required this.pin});
-} */
-
 class GetPinEvent extends AuthEvent {
   const GetPinEvent();
 }

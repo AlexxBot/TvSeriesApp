@@ -97,6 +97,7 @@ class _EpisodeListWidgetState extends State<EpisodeListWidget>
                     height: 100,
                     width: 75,
                     showNull: false,
+                    withshadow: false,
                     //scale: 0.5,
                   ),
                   Expanded(

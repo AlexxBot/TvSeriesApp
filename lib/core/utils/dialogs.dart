@@ -6,30 +6,26 @@ Future<bool> confirmation(BuildContext context,
     {String title = 'confirmation',
     String text = 'Want to leave the App?',
     bool isError = false}) async {
-  // set up the buttons
-  /* Widget cancelButton = TextButton(
-    child: Text("Cancelar"),
-    onPressed: () => Navigator.pop(context, false),
-  ); */
   Widget cancelButton = ButtonStyledWidget(
-      title: "Cancel", onPressed: () => Navigator.pop(context, false));
+      backgroundColor: Colors.white,
+      title: "Cancel",
+      onPressed: () => Navigator.pop(context, false));
 
   Widget continueButton = ButtonStyledWidget(
-    title: "Acept",
+    title: "Accept",
     onPressed: () => Navigator.pop(context, true),
     withBackground: true,
   );
 
-  // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    //backgroundColor: filterBackground.w,
+    backgroundColor: filterBackground,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(18.0),
       /* side: BorderSide(color: Colors.red) */
     ),
     title: Text(
       title,
-      style: TextStyle(color: isError ? errorColor : colorText),
+      style: TextStyle(color: isError ? errorColor : Colors.black),
     ),
     content: Text(text),
     actions: [

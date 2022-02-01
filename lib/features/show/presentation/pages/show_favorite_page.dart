@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tvseries_app/core/global/size_constants.dart';
 import 'package:tvseries_app/core/widgets/snack_widget.dart';
-import 'package:tvseries_app/core/widgets/text_widget.dart';
 import 'package:tvseries_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:tvseries_app/features/show/presentation/widgets/show_list_widget.dart';
 
@@ -26,7 +25,7 @@ class _ShowFavoritePageState extends State<ShowFavoritePage> {
   }
 
   Future<void> _getFavorites() async {
-    _authBloc.add(const GetFavoritesEvent());
+    return _authBloc.add(const GetFavoritesEvent());
   }
 
   @override
@@ -43,8 +42,6 @@ class _ShowFavoritePageState extends State<ShowFavoritePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                  child: RefreshIndicator(
-                onRefresh: () => _getFavorites(),
                 child: BlocListener<AuthBloc, AuthState>(
                     bloc: _authBloc,
                     listener: (context, state) {
@@ -64,14 +61,22 @@ class _ShowFavoritePageState extends State<ShowFavoritePage> {
                               child: CircularProgressIndicator());
                         }
                         if (_idList.isEmpty) {
-                          return const Center(
-                              child: TextWidget('There is no favorites yet'));
+                          return Center(
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  opacity: 0.2,
+                                  image: AssetImage('assets/images/tv.png'),
+                                ),
+                              ),
+                            ),
+                          );
                         } else {
                           return ShowListWidget(idList: _idList);
                         }
                       },
                     )),
-              ))
+              )
             ],
           ),
         ),

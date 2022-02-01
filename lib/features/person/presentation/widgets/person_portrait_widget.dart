@@ -31,14 +31,6 @@ class _PersonPortraitWidgetState extends State<PersonPortraitWidget> {
     _authBloc.add(ExistFavoriteEvent(id: widget.person.id.toString()));
   }
 
-  void _addToFavorites() {
-    if (_isFavorite) {
-      _authBloc.add(DeleteFavoriteEvent(id: widget.person.id.toString()));
-    } else {
-      _authBloc.add(SaveFavoriteEvent(id: widget.person.id.toString()));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -48,7 +40,7 @@ class _PersonPortraitWidgetState extends State<PersonPortraitWidget> {
                 fit: BoxFit.cover,
                 image: NetworkImage(widget.person.imageUrl!),
                 colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.5), BlendMode.dstATop),
+                    Colors.black.withOpacity(0.4), BlendMode.dstATop),
               )
             : null,
       ),
@@ -67,55 +59,59 @@ class _PersonPortraitWidgetState extends State<PersonPortraitWidget> {
                 ],
               ),
               Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    HorizontalDetailWidget(
-                      name: 'name',
-                      value: widget.person.name,
-                    ),
-                    HorizontalDetailWidget(
-                        name: 'Country name', value: widget.person.countryName),
-                    HorizontalDetailWidget(
-                        name: 'Birthday', value: widget.person.birthday),
-                    HorizontalDetailWidget(
-                      name: 'Gender',
-                      value: widget.person.gender,
-                    )
-                    /* ParagraphWidget(
-                      widget.person.summary,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: vspace_s, horizontal: hspace_s),
-                      child: Row(
-                        children: [
-                          TextWidget('time: ${widget.person.scheduleTime}'),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: vspace_s, horizontal: hspace_s),
-                            child: SingleChildScrollView(
-                                child: Row(
-                              children: widget.person.scheduleDays
-                                  .map((e) => Chip(
-                                          label: TextWidget(
-                                        e,
-                                        fontSize: fontSize_s,
-                                        color: Colors.black,
-                                      )))
-                                  .toList(),
-                            )),
-                          )
-                        ],
+                child: Padding(
+                  padding: const EdgeInsets.all(vspace_s),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      HorizontalDetailWidget(
+                        name: 'Name',
+                        value: widget.person.name,
                       ),
-                    ) */
-                    /* Html(
-                      data: person.summary,
-                      style: {'p': Style(color: Colors.white)},
-                    ) */
-                  ],
+                      HorizontalDetailWidget(
+                          name: 'Country name',
+                          value: widget.person.countryName),
+                      HorizontalDetailWidget(
+                          name: 'Birthday', value: widget.person.birthday),
+                      HorizontalDetailWidget(
+                        name: 'Gender',
+                        value: widget.person.gender,
+                      )
+                      /* ParagraphWidget(
+                        widget.person.summary,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: vspace_s, horizontal: hspace_s),
+                        child: Row(
+                          children: [
+                            TextWidget('time: ${widget.person.scheduleTime}'),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: vspace_s, horizontal: hspace_s),
+                              child: SingleChildScrollView(
+                                  child: Row(
+                                children: widget.person.scheduleDays
+                                    .map((e) => Chip(
+                                            label: TextWidget(
+                                          e,
+                                          fontSize: fontSize_s,
+                                          color: Colors.black,
+                                        )))
+                                    .toList(),
+                              )),
+                            )
+                          ],
+                        ),
+                      ) */
+                      /* Html(
+                        data: person.summary,
+                        style: {'p': Style(color: Colors.white)},
+                      ) */
+                    ],
+                  ),
                 ),
               )
             ],

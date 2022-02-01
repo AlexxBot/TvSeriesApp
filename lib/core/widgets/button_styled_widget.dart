@@ -69,9 +69,8 @@ class ButtonStyledWidgetState extends State<ButtonStyledWidget> {
                     : Theme.of(context).backgroundColor.withOpacity(0.5);
               return widget.withBackground
                   ? Theme.of(context).primaryColor.withOpacity(1)
-                  : Theme.of(context)
-                      .backgroundColor
-                      .withOpacity(0); // Use the component's default.
+                  : Colors.white
+                      .withOpacity(0.5); // Use the component's default.
             },
           ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(

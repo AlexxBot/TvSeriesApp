@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tvseries_app/core/global/size_constants.dart';
 import 'package:tvseries_app/core/global/theme_data.dart';
 import 'package:tvseries_app/core/widgets/filter_container_widget.dart';
+import 'package:tvseries_app/core/widgets/input_widget.dart';
 import 'package:tvseries_app/core/widgets/snack_widget.dart';
 import 'package:tvseries_app/core/widgets/text_widget.dart';
 import 'package:tvseries_app/core/widgets/will_pop_scope_widget.dart';
@@ -64,22 +65,11 @@ class _PersonPageState extends State<PersonPage> {
                     height: 65,
                     padding: const EdgeInsets.symmetric(
                         vertical: vspace_m, horizontal: hspace_s),
-                    child: TextFormField(
+                    child: InputWidget(
                       controller: _nameController,
                       focusNode: _nameFocusNode,
-                      //style: const TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                          labelText: "Search People",
-                          hintText: "Search People",
-                          suffixIcon: IconButton(
-                            iconSize: 30,
-                            color: primaryColor,
-                            icon: const Icon(Icons.search),
-                            onPressed: _searchPerson,
-                          ),
-                          border: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(borderRadiusInput)))),
+                      label: "Search by name",
+                      onPressed: _searchPerson,
                     ),
                   ),
                 ),
@@ -103,8 +93,16 @@ class _PersonPageState extends State<PersonPage> {
                                   child: CircularProgressIndicator());
                             }
                             if (_personList.isEmpty) {
-                              return const Center(
-                                  child: TextWidget('No People Provided'));
+                              return Center(
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      opacity: 0.2,
+                                      image: AssetImage('assets/images/tv.png'),
+                                    ),
+                                  ),
+                                ),
+                              );
                             } else {
                               return PersonListWidget(personList: _personList);
                             }

@@ -7,13 +7,15 @@ class ImageWidget extends StatefulWidget {
   final double height;
   final double width;
   final bool showNull;
+  final bool withshadow;
   const ImageWidget(
       {Key? key,
       this.imageUrl,
       this.scale = 1,
       required this.height,
       required this.width,
-      this.showNull = true})
+      this.showNull = true,
+      this.withshadow = true})
       : super(key: key);
 
   @override
@@ -40,7 +42,7 @@ class _ImageWidgetState extends State<ImageWidget> {
             width: widget.width,
             decoration: BoxDecoration(
                 boxShadow: [
-                  if (widget.imageUrl != null)
+                  if (widget.imageUrl != null && widget.withshadow)
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.3),
                       spreadRadius: 5,
@@ -53,8 +55,8 @@ class _ImageWidgetState extends State<ImageWidget> {
                         fit: BoxFit.cover,
                         image: NetworkImage(widget.imageUrl!))
                     : const DecorationImage(
-                        opacity: 0.3,
-                        fit: BoxFit.cover,
+                        opacity: 0.1,
+                        //fit: BoxFit.cover,
                         image: AssetImage('assets/images/tv.png'),
                       ),
                 borderRadius:
