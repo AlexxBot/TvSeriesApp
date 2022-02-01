@@ -9,9 +9,9 @@
 
 
 ### **About the Challenge**
-### 1 there are three apk options to install because depends on the mobile architecture, try one by one,
-### 2 this app was implemented with all the mandatory features
-### 3 this app was implemented with the following optional bonus:
+### 1 There are three apks options to install because depends on the mobile architecture, try one by one.
+### 2 This app was implemented with all the mandatory features
+### 3 This app was implemented with the following optional bonus:
 
 - Allow the user to set a PIN number to secure the application and prevent unauthorized
 users.
