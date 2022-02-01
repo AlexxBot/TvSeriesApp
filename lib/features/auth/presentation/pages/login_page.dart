@@ -20,14 +20,13 @@ class _LoginPageState extends State<LoginPage> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(vspace_l),
             height: MediaQuery.of(context).size.height,
             //width: MediaQuery.of(context).size.width,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               //crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                LogoWidget(),
                 TitleWigdet(),
                 FormWidget(),
                 const SizedBox(height: vspace_xxl),

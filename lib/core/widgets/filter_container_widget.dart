@@ -24,7 +24,7 @@ class FilterContainerWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadiusModal),
       ),
       elevation: 5,
-      color: filterBackground,
+      color: filterBackground.withOpacity(0.7),
       margin:
           const EdgeInsets.symmetric(vertical: vspace_s, horizontal: hspace_s),
       child: Padding(

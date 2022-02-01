@@ -8,6 +8,7 @@ import 'package:tvseries_app/core/widgets/filter_container_widget.dart';
 import 'package:tvseries_app/core/widgets/filter_widget.dart';
 import 'package:tvseries_app/core/widgets/input_widget.dart';
 import 'package:tvseries_app/core/widgets/snack_widget.dart';
+import 'package:tvseries_app/core/widgets/text_widget.dart';
 import 'package:tvseries_app/core/widgets/will_pop_scope_widget.dart';
 import 'package:tvseries_app/features/auth/presentation/pages/menu_page.dart';
 import 'package:tvseries_app/features/show/domain/entities/show_filter.dart';
@@ -27,6 +28,7 @@ class ShowPage extends StatefulWidget {
 class _ShowPageState extends State<ShowPage> {
   late final ShowBloc _showBloc;
   final _nameController = TextEditingController();
+  final _nameFocusNode = FocusNode();
 
   late List<ShowItem> _showList;
 
@@ -35,6 +37,12 @@ class _ShowPageState extends State<ShowPage> {
     super.initState();
     _showBloc = BlocProvider.of<ShowBloc>(context);
     _showList = [];
+
+    _nameFocusNode.addListener(() {
+      if (!_nameFocusNode.hasFocus) {
+        _searchShow();
+      }
+    });
   }
 
   void _searchShow() {
@@ -76,22 +84,20 @@ class _ShowPageState extends State<ShowPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 FilterContainerWidget(
-                  child:
-                      /* InputWidget(
-                    labelText: 'Name',
-                    controller: _nameController,
-                  ) */
-                      Container(
+                  child: Container(
                     height: 65,
                     padding: const EdgeInsets.symmetric(
                         vertical: vspace_m, horizontal: hspace_s),
                     child: TextFormField(
                       controller: _nameController,
+                      focusNode: _nameFocusNode,
                       //style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                           labelText: "Search Shows",
                           hintText: "Search Shows",
                           suffixIcon: IconButton(
+                            iconSize: 30,
+                            color: primaryColor,
                             icon: const Icon(Icons.search),
                             onPressed: _searchShow,
                           ),
@@ -120,7 +126,12 @@ class _ShowPageState extends State<ShowPage> {
                               return const Center(
                                   child: CircularProgressIndicator());
                             } else {
-                              return ShowListWidget(showList: _showList);
+                              if (_showList.isEmpty) {
+                                return const Center(
+                                    child: TextWidget('No Series Provided'));
+                              } else {
+                                return ShowListWidget(showList: _showList);
+                              }
                             }
                           },
                         )))

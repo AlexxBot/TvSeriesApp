@@ -5,7 +5,7 @@ import 'package:tvseries_app/core/global/theme_data.dart';
 import 'package:tvseries_app/core/widgets/paragraph_widget.dart';
 import 'package:tvseries_app/core/widgets/text_widget.dart';
 import 'package:tvseries_app/features/show/domain/entities/episode.dart';
-import 'package:tvseries_app/features/show/presentation/widgets/image_widget.dart';
+import 'package:tvseries_app/core/widgets/image_widget.dart';
 
 class EpisodeListWidget extends StatefulWidget {
   final List<Episode> episodeList;
@@ -46,58 +46,34 @@ class _EpisodeListWidgetState extends State<EpisodeListWidget>
   }
 
   _fillSeasons() {
-    for (int i = 0; i < widget.episodeList.length; i++) {
-      if (widget.episodeList[i].season > /* _seasons.length */ _tabsBar
-          .length) {
-        /* _seasons.add(ExpansionTile(
-          children: [],
-          title: TextWidget('Season ${widget.episodeList[i].season}'),
-        )); */
-        _tabsBar.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(
-                vertical: vspace_s, horizontal: hspace_s),
-            child: TextWidget(
-              'Season ${widget.episodeList[i].season}',
-              fontSize: fontSize_l,
-            ),
+    for (int i = 0; i < _seasonsCount; i++) {
+      _tabsBar.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(
+              vertical: vspace_s, horizontal: hspace_s),
+          child: TextWidget(
+            'Season ${i + 1}',
+            fontSize: fontSize_l,
           ),
-        );
-        _tabsBarView.add(
-          /* Container(
-          height: double.infinity,
-          width: 20,
-          color: Colors.red,
-        ) */
-          Container(
-            decoration: BoxDecoration(
-                color: filterBackground.withOpacity(0.2),
-                borderRadius:
-                    const BorderRadius.all(Radius.circular(borderRadiusInput))),
-            child: Scrollbar(
-              child: SingleChildScrollView(
-                child: Wrap(
-                  children: [],
-                ),
+        ),
+      );
+      _tabsBarView.add(
+        Container(
+          decoration: BoxDecoration(
+              color: filterBackground.withOpacity(0.2),
+              borderRadius:
+                  const BorderRadius.all(Radius.circular(borderRadiusInput))),
+          child: Scrollbar(
+            child: SingleChildScrollView(
+              child: Wrap(
+                children: [],
               ),
             ),
           ),
-        );
-        /* (_tabsBarView as TabBarView).children.add(Scrollbar(child: ListView(children: [],))); */
-
-      }
-      /* (_seasons[widget.episodeList[i].season - 1] as ExpansionTile)
-          .children
-          .add(ExpansionTile(
-            title: TextWidget(widget.episodeList[i].name),
-            children: [
-              TextWidget(widget.episodeList[i].summary)
-              /* Html(
-                data: widget.episodeList[i].summary,
-                style: {'p': Style(color: Colors.white)},
-              ) */
-            ],
-          )); */
+        ),
+      );
+    }
+    for (int i = 0; i < widget.episodeList.length; i++) {
       ((((_tabsBarView[widget.episodeList[i].season - 1] as Container).child
                       as Scrollbar)
                   .child as SingleChildScrollView)
@@ -134,22 +110,12 @@ class _EpisodeListWidgetState extends State<EpisodeListWidget>
               ),
             ],
           ));
-
-      //((_tabsBarView[widget.episodeList[i].season - 1] as Scrollbar).child as ListView).
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return /* Scrollbar(
-        child: ListView.builder(
-            itemCount: widget.episodeList.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(widget.episodeList[index].name),
-              );
-            })); */
-        Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
@@ -166,10 +132,14 @@ class _EpisodeListWidgetState extends State<EpisodeListWidget>
               tabs: _tabsBar),
         ),
         Expanded(
-          child: TabBarView(
-            children: /* [Text('people'), Text('Person')] */ _tabsBarView,
-            controller: _tabController,
-          ),
+          child: _seasonsCount == 0
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : TabBarView(
+                  children: _tabsBarView,
+                  controller: _tabController,
+                ),
         ),
       ],
     );

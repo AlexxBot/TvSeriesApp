@@ -19,7 +19,7 @@ class TextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      maxLines: 10,
+      maxLines: 15,
       overflow: TextOverflow.ellipsis,
       textAlign: textAlign,
       style: TextStyle(

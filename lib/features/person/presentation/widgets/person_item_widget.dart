@@ -7,14 +7,11 @@ import 'package:tvseries_app/core/widgets/text_widget.dart';
 import 'package:tvseries_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:tvseries_app/features/person/domain/entities/person.dart';
 import 'package:tvseries_app/features/person/presentation/pages/person_detail_page.dart';
-import 'package:tvseries_app/features/show/presentation/widgets/image_widget.dart';
+import 'package:tvseries_app/core/widgets/image_widget.dart';
 
 class PersonItemWidget extends StatefulWidget {
   final Person person;
-  final bool favoriteInitialValue;
-  const PersonItemWidget(
-      {Key? key, required this.person, this.favoriteInitialValue = false})
-      : super(key: key);
+  const PersonItemWidget({Key? key, required this.person}) : super(key: key);
 
   @override
   State<PersonItemWidget> createState() => _PersonItemWidgetState();
@@ -23,13 +20,10 @@ class PersonItemWidget extends StatefulWidget {
 class _PersonItemWidgetState extends State<PersonItemWidget> {
   late AuthBloc _authBloc;
 
-  late bool _isFavorite;
-
   @override
   void initState() {
     super.initState();
     _authBloc = BlocProvider.of<AuthBloc>(context);
-    _isFavorite = widget.favoriteInitialValue;
     _authBloc.add(ExistFavoriteEvent(id: widget.person.id.toString()));
   }
 
@@ -38,37 +32,29 @@ class _PersonItemWidgetState extends State<PersonItemWidget> {
         .push(CustomPageRoute(PersonDetailPage(person: widget.person)));
   }
 
-  /* void _addToFavorites() {
-    if (_isFavorite) {
-      _authBloc.add(DeleteFavoriteEvent(id: widget.person.id.toString()));
-    } else {
-      _authBloc.add(SaveFavoriteEvent(id: widget.person.id.toString()));
-    }
-  } */
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         _goToDetail(context);
       },
-      child: FittedBox(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                ImageWidget(
-                    imageUrl: widget.person.imageUrl, height: 200, width: 150),
-              ],
-            ),
-            //Image.network(person.imageUrl ?? ''),
-            TextWidget(
-              widget.person.name + ' ' + widget.person.id.toString(),
-              fontSize: fontSize_l,
-              color: textColor,
-            ),
-          ],
-        ),
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              ImageWidget(
+                  imageUrl: widget.person.imageUrl, height: 200, width: 150),
+            ],
+          ),
+          const SizedBox(
+            height: vspace_s,
+          ),
+          TextWidget(
+            widget.person.name,
+            fontSize: fontSize_l,
+            color: textColor,
+          ),
+        ],
       ),
     );
   }

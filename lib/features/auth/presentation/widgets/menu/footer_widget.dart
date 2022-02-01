@@ -12,17 +12,19 @@ class FooterWidget extends StatefulWidget {
 
 class _FooterWidgetState extends State<FooterWidget> {
   late final authBloc;
+  String _pinSetted = '';
 
   @override
   void initState() {
     super.initState();
     authBloc = BlocProvider.of<AuthBloc>(context);
+    authBloc.add(const GetPinEvent());
   }
 
   //void _setNotifications(bool activated) {}
 
   void _logout() {
-    authBloc.add(LogoutEvent());
+    authBloc.add(const LogoutEvent());
   }
 
   @override
@@ -34,13 +36,27 @@ class _FooterWidgetState extends State<FooterWidget> {
           Navigator.of(context).pushNamedAndRemoveUntil(
               RouteGenerator.loginPage, (Route<dynamic> route) => false);
         }
+        if (state is PinRetrivedState) {
+          _pinSetted = state.pinNumber;
+        }
       },
       child: Column(children: [
-        ListTile(
-            onTap: _logout,
-            leading: Icon(Icons.logout, color: Theme.of(context).errorColor),
-            title: Text("Logout",
-                style: TextStyle(color: Theme.of(context).errorColor)))
+        BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if (_pinSetted != '') {
+              return ListTile(
+                  onTap: _logout,
+                  leading:
+                      Icon(Icons.logout, color: Theme.of(context).errorColor),
+                  title: Text("Logout",
+                      style: TextStyle(color: Theme.of(context).errorColor)));
+            } else {
+              return const SizedBox(
+                height: 0,
+              );
+            }
+          },
+        )
       ]),
     );
   }

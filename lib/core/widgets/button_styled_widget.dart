@@ -33,61 +33,51 @@ class ButtonStyledWidget extends StatefulWidget {
 }
 
 class ButtonStyledWidgetState extends State<ButtonStyledWidget> {
-  late bool _visible;
-
-  set visible(bool value) {
-    setState(() => _visible = value);
-  }
-
   @override
   void initState() {
     super.initState();
-    _visible = true;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: _visible,
-      child: TextButton(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: widget.vOutPadding, horizontal: widget.hOutPadding),
-            child: Text(widget.title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: widget.withBackground
-                      ? widget.textColor
-                      : Theme.of(context).primaryColor,
-                  fontSize: widget.textSize,
-                )),
-          ),
-          onPressed: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-            vibrate();
-            widget.onPressed();
-          },
-          style: ButtonStyle(
-            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(
-                vertical: widget.vInPadding, horizontal: widget.hInPadding)),
-            backgroundColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
-                if (states.contains(MaterialState.pressed))
-                  return widget.withBackground
-                      ? Theme.of(context).primaryColor.withOpacity(0.5)
-                      : Theme.of(context).backgroundColor.withOpacity(0.5);
+    return TextButton(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              vertical: widget.vOutPadding, horizontal: widget.hOutPadding),
+          child: Text(widget.title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: widget.withBackground
+                    ? widget.textColor
+                    : Theme.of(context).primaryColor,
+                fontSize: widget.textSize,
+              )),
+        ),
+        onPressed: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+          vibrate();
+          widget.onPressed();
+        },
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(
+              vertical: widget.vInPadding, horizontal: widget.hInPadding)),
+          backgroundColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.pressed))
                 return widget.withBackground
-                    ? Theme.of(context).primaryColor.withOpacity(1)
-                    : Theme.of(context)
-                        .backgroundColor
-                        .withOpacity(0); // Use the component's default.
-              },
-            ),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(borderRadiusModal),
-                    side: BorderSide(color: Theme.of(context).primaryColor))),
-          )),
-    );
+                    ? Theme.of(context).primaryColor.withOpacity(0.5)
+                    : Theme.of(context).backgroundColor.withOpacity(0.5);
+              return widget.withBackground
+                  ? Theme.of(context).primaryColor.withOpacity(1)
+                  : Theme.of(context)
+                      .backgroundColor
+                      .withOpacity(0); // Use the component's default.
+            },
+          ),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(borderRadiusModal),
+                  side: BorderSide(color: Theme.of(context).primaryColor))),
+        ));
   }
 }

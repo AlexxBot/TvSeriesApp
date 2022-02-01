@@ -8,7 +8,7 @@ import 'package:tvseries_app/core/widgets/text_widget.dart';
 import 'package:tvseries_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:tvseries_app/features/show/domain/entities/show_item.dart';
 import 'package:tvseries_app/features/show/presentation/pages/show_detail_page.dart';
-import 'package:tvseries_app/features/show/presentation/widgets/image_widget.dart';
+import 'package:tvseries_app/core/widgets/image_widget.dart';
 
 class ShowItemWidget extends StatefulWidget {
   final ShowItem showItem;
@@ -53,62 +53,56 @@ class _ShowItemWidgetState extends State<ShowItemWidget> {
       onTap: () {
         _goToDetail(context);
       },
-      child: FittedBox(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                ImageWidget(
-                    imageUrl: widget.showItem.imageUrl,
-                    height: 200,
-                    width: 150),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: BlocListener<AuthBloc, AuthState>(
-                    listener: (context, state) {
-                      if (state is FavoriteExistState) {
-                        if (state.id == widget.showItem.id.toString()) {
-                          _isFavorite = state.exist;
-                        }
-                      }
-                      if (state is FavoriteSavedState) {
-                        if (state.id == widget.showItem.id.toString()) {
-                          if (state.saved) _isFavorite = true;
-                          /* SnackWidget.showMessage(
-                              context, 'Added to favorites'); */
-                        }
-                      }
-                      if (state is FavoriteDeletedState) {
-                        if (state.id == widget.showItem.id.toString()) {
-                          if (state.deleted) _isFavorite = false;
-                          /* SnackWidget.showMessage(
-                              context, 'Deleted from favorites'); */
-                        }
-                      }
-                    },
-                    child: BlocBuilder<AuthBloc, AuthState>(
-                      builder: (context, state) {
-                        return IconButton(
-                            onPressed: _addToFavorites,
-                            icon: Icon(
-                              Icons.favorite,
-                              color:
-                                  _isFavorite ? errorColor : filterBackground,
-                            ));
-                      },
-                    ),
-                  ),
-                )
-              ],
-            ),
-            //Image.network(showItem.imageUrl ?? ''),
-            TextWidget(
-              widget.showItem.name + ' ' + widget.showItem.id.toString(),
-              fontSize: fontSize_l,
-              color: textColor,
-            ),
-          ],
-        ),
+      child: Column(
+        /* mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center, */
+        children: [
+          Stack(
+            alignment: Alignment.topLeft,
+            children: [
+              ImageWidget(
+                  imageUrl: widget.showItem.imageUrl, height: 200, width: 150),
+              BlocListener<AuthBloc, AuthState>(
+                listener: (context, state) {
+                  if (state is FavoriteExistState) {
+                    if (state.id == widget.showItem.id.toString()) {
+                      _isFavorite = state.exist;
+                    }
+                  }
+                  if (state is FavoriteSavedState) {
+                    if (state.id == widget.showItem.id.toString()) {
+                      if (state.saved) _isFavorite = true;
+                    }
+                  }
+                  if (state is FavoriteDeletedState) {
+                    if (state.id == widget.showItem.id.toString()) {
+                      if (state.deleted) _isFavorite = false;
+                    }
+                  }
+                },
+                child: BlocBuilder<AuthBloc, AuthState>(
+                  builder: (context, state) {
+                    return IconButton(
+                        iconSize: 30,
+                        onPressed: _addToFavorites,
+                        icon: Icon(
+                          Icons.favorite,
+                          color: _isFavorite ? errorColor : filterBackground,
+                        ));
+                  },
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: vspace_s,
+          ),
+          TextWidget(
+            widget.showItem.name,
+            fontSize: fontSize_m,
+            color: textColor,
+          ),
+        ],
       ),
     );
   }

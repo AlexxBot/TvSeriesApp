@@ -20,7 +20,7 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: secondaryColor.withOpacity(0.2),
+      backgroundColor: secondaryColor.withOpacity(0.7),
       child: ListView(
         children: [
           HeaderWidget(),

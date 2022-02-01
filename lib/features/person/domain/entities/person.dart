@@ -1,20 +1,30 @@
 class Person {
   final int id;
   final String name;
+  final String countryName;
+  final String birthday;
+  final String gender;
   final String? imageUrl;
 
   Person({
     required this.id,
     required this.name,
+    required this.countryName,
+    required this.birthday,
+    required this.gender,
     this.imageUrl,
   });
 
   factory Person.fromJson(Map<String, dynamic> json) {
     final person = json["person"] ?? {};
     final image = person["image"] ?? {};
+    final country = person["country"] ?? {};
     return Person(
         id: person['id'],
         name: person['name'] ?? '',
+        countryName: country['name'] ?? '',
+        birthday: person['birthday'] ?? '',
+        gender: person['gender'] ?? '',
         imageUrl: image['original'] ?? '');
   }
 

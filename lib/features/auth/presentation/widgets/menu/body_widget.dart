@@ -25,20 +25,24 @@ class _BodyWidgetState extends State<BodyWidget> {
     return Column(
       children: [
         ListTile(
-          title: const TextWidget('Series'),
-          onTap: () =>
-              Navigator.pushReplacementNamed(context, RouteGenerator.showsPage),
-        ),
+            title: const TextWidget('Series'),
+            onTap: () =>
+                //Navigator.pushReplacementNamed(context, RouteGenerator.showsPage),
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    RouteGenerator.showsPage, (Route<dynamic> route) => false)),
         /* ListTile(
           title: const TextWidget('Favorites'),
           onTap: () => Navigator.pushReplacementNamed(
               context, RouteGenerator.favoritesPage),
         ), */
         ListTile(
-          title: const TextWidget('People'),
-          onTap: () => Navigator.pushReplacementNamed(
-              context, RouteGenerator.peoplePage),
-        ),
+            title: const TextWidget('People'),
+            onTap:
+                () => /* Navigator.pushReplacementNamed(
+              context, RouteGenerator.peoplePage), */
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        RouteGenerator.peoplePage,
+                        (Route<dynamic> route) => false)),
       ],
     );
   }

@@ -48,13 +48,19 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
           child: Column(
             children: [
               PersonPortraitWidget(person: widget.person),
+              const SizedBox(
+                height: vspace_s,
+              ),
               Container(
+                  decoration: const BoxDecoration(
+                      color: primaryColor,
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(borderRadiusInput))),
                   width: double.infinity,
-                  padding: EdgeInsets.all(vspace_s),
-                  color: primaryColor,
-                  child: Center(
-                      child:
-                          const TextWidget('Series', fontSize: fontSize_xxl))),
+                  margin: const EdgeInsets.all(vspace_s),
+                  padding: const EdgeInsets.all(vspace_s),
+                  child: const Center(
+                      child: TextWidget('Series', fontSize: fontSize_xxl))),
               Expanded(
                   child: BlocListener<PersonBloc, PersonState>(
                       bloc: _showBloc,

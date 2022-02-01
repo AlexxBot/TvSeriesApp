@@ -19,7 +19,7 @@ class FormWidget extends StatefulWidget {
 class _FormWidgetState extends State<FormWidget> {
   late final AuthBloc authBloc;
 
-  TextEditingController _pinNumber = TextEditingController(text: "");
+  final _pinNumber = TextEditingController(text: "");
   String _pinSetted = '';
 
   late bool visible;
@@ -28,16 +28,12 @@ class _FormWidgetState extends State<FormWidget> {
   void initState() {
     super.initState();
     authBloc = BlocProvider.of<AuthBloc>(context);
-    authBloc.add(GetPinEvent());
+    authBloc.add(const GetPinEvent());
     visible = false;
   }
 
   void _login() {
-    /* authBloc.add(LoginEvent(
-      pin: _pinNumber.text,
-    )); */
     if (_pinNumber.text.trim() == _pinSetted.trim()) {
-      //LoadingWidget.hide(context);
       Navigator.pushNamed(context, RouteGenerator.showsPage);
     } else {
       SnackWidget.showMessage(context, 'Invalidate Pin Number');
@@ -53,22 +49,13 @@ class _FormWidgetState extends State<FormWidget> {
     return BlocListener<AuthBloc, AuthState>(
       bloc: authBloc,
       listener: (context, state) {
-        /* if (state is LoadingState) {
-          LoadingWidget.show(context);
-        } */
         if (state is PinRetrivedState) {
-          //LoadingWidget.hide(context);
           _pinSetted = state.pinNumber;
           if (_pinSetted == '') {
             Navigator.pushReplacementNamed(context, RouteGenerator.showsPage);
           }
         }
-        /* if (state is LoggedInState) {
-          LoadingWidget.hide(context);
-          Navigator.pushNamed(context, RouteGenerator.showsPage);
-        } */
         if (state is ErrorState) {
-          //LoadingWidget.hide(context);
           SnackWidget.showMessage(context, state.message);
         }
       },

@@ -8,7 +8,7 @@ import 'package:tvseries_app/features/show/domain/entities/show_item.dart';
 import 'package:tvseries_app/features/show/presentation/bloc/show_bloc.dart';
 import 'package:tvseries_app/features/show/presentation/widgets/episode_list_widget.dart';
 import 'package:tvseries_app/features/show/presentation/widgets/show_portrait_widget.dart';
-import 'package:tvseries_app/features/show/presentation/widgets/image_widget.dart';
+import 'package:tvseries_app/core/widgets/image_widget.dart';
 import 'package:tvseries_app/features/show/presentation/widgets/show_list_widget.dart';
 
 class ShowDetailPage extends StatefulWidget {

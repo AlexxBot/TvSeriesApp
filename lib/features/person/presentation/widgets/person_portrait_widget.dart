@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tvseries_app/core/global/size_constants.dart';
 import 'package:tvseries_app/core/global/theme_data.dart';
+import 'package:tvseries_app/core/widgets/horizontal_detail_widget.dart';
 import 'package:tvseries_app/core/widgets/paragraph_widget.dart';
 import 'package:tvseries_app/core/widgets/text_widget.dart';
 import 'package:tvseries_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:tvseries_app/features/person/domain/entities/person.dart';
-import 'package:tvseries_app/features/show/presentation/widgets/image_widget.dart';
+import 'package:tvseries_app/core/widgets/image_widget.dart';
 
 class PersonPortraitWidget extends StatefulWidget {
   final Person person;
@@ -40,24 +41,7 @@ class _PersonPortraitWidgetState extends State<PersonPortraitWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return /* Container(
-        padding: const EdgeInsets.symmetric(
-            vertical: vspace_m, horizontal: hspace_m),
-        //constraints: const BoxConstraints.expand(),
-        width: double.infinity,
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: PersonImageWidget(imageUrl: person.imageUrl),
-            ),
-            Align(
-              alignment: Alignment.topRight,
-              child: TextWidget(person.name),
-            )
-          ],
-        )); */
-        Container(
+    return Container(
       decoration: BoxDecoration(
         image: widget.person.imageUrl != null
             ? DecorationImage(
@@ -72,34 +56,8 @@ class _PersonPortraitWidgetState extends State<PersonPortraitWidget> {
           const EdgeInsets.symmetric(vertical: vspace_m, horizontal: hspace_m),
       child: Column(
         children: [
-          /* Container(
-            height: 40,
-            width: double.infinity,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(vspace_s),
-                  child: Chip(
-                      padding: const EdgeInsets.all(0),
-                      elevation: 5,
-                      label: TextWidget(
-                        widget.person.genres[index],
-                        fontSize: fontSize_s,
-                        color: Colors.black,
-                      )),
-                );
-              },
-              itemCount: widget.person.genres.length,
-            ),
-          ), */
           Row(
             children: [
-              /* ImageWidget(
-                imageUrl: person.imageUrl,
-                height: 200,
-                width: 150,
-              ), */
               Stack(
                 children: [
                   ImageWidget(
@@ -111,8 +69,21 @@ class _PersonPortraitWidgetState extends State<PersonPortraitWidget> {
               Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    HorizontalDetailWidget(
+                      name: 'name',
+                      value: widget.person.name,
+                    ),
+                    HorizontalDetailWidget(
+                        name: 'Country name', value: widget.person.countryName),
+                    HorizontalDetailWidget(
+                        name: 'Birthday', value: widget.person.birthday),
+                    HorizontalDetailWidget(
+                      name: 'Gender',
+                      value: widget.person.gender,
+                    )
                     /* ParagraphWidget(
                       widget.person.summary,
                     ),

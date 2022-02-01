@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tvseries_app/core/global/size_constants.dart';
 import 'package:tvseries_app/core/global/theme_data.dart';
+import 'package:tvseries_app/core/widgets/button_styled_widget.dart';
 import 'package:tvseries_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:tvseries_app/router.dart';
 
@@ -33,20 +34,28 @@ class _HeaderWidgetState extends State<HeaderWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(color: secondaryColor),
+      decoration: const BoxDecoration(color: filterBackground),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
         child: Column(
-          /* crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start, */
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             ListTile(
               leading: Text(
-                "Acount",
+                "Account",
                 style: TextStyle(
                     fontSize: fontSize_l,
-                    color: Theme.of(context).scaffoldBackgroundColor),
+                    color: Theme.of(context).primaryColor),
               ),
+              trailing: ButtonStyledWidget(
+                  hOutPadding: hspace_l,
+                  withBackground: true,
+                  title: "Settings",
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, RouteGenerator.configPage);
+                  }),
 
               /* trailing: ChipWidget(
                   withBackground: false,
@@ -60,7 +69,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                   color: Theme.of(context).scaffoldBackgroundColor,
                 ) */
             ),
-            ListTile(
+
+            /* ListTile(
               leading: Text(
                 "Settings",
                 style: TextStyle(
@@ -69,7 +79,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
               ),
               onTap: () =>
                   Navigator.pushNamed(context, RouteGenerator.configPage),
-            )
+            ) */
           ],
         ),
       ),

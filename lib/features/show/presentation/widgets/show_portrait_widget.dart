@@ -6,7 +6,7 @@ import 'package:tvseries_app/core/widgets/paragraph_widget.dart';
 import 'package:tvseries_app/core/widgets/text_widget.dart';
 import 'package:tvseries_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:tvseries_app/features/show/domain/entities/show_item.dart';
-import 'package:tvseries_app/features/show/presentation/widgets/image_widget.dart';
+import 'package:tvseries_app/core/widgets/image_widget.dart';
 
 class ShowPortraitWidget extends StatefulWidget {
   final ShowItem showItem;
@@ -40,24 +40,7 @@ class _ShowPortraitWidgetState extends State<ShowPortraitWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return /* Container(
-        padding: const EdgeInsets.symmetric(
-            vertical: vspace_m, horizontal: hspace_m),
-        //constraints: const BoxConstraints.expand(),
-        width: double.infinity,
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: ShowImageWidget(imageUrl: showItem.imageUrl),
-            ),
-            Align(
-              alignment: Alignment.topRight,
-              child: TextWidget(showItem.name),
-            )
-          ],
-        )); */
-        Container(
+    return Container(
       decoration: BoxDecoration(
         image: widget.showItem.imageUrl != null
             ? DecorationImage(
@@ -72,7 +55,7 @@ class _ShowPortraitWidgetState extends State<ShowPortraitWidget> {
           const EdgeInsets.symmetric(vertical: vspace_m, horizontal: hspace_m),
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 40,
             width: double.infinity,
             child: ListView.builder(
@@ -95,11 +78,6 @@ class _ShowPortraitWidgetState extends State<ShowPortraitWidget> {
           ),
           Row(
             children: [
-              /* ImageWidget(
-                imageUrl: showItem.imageUrl,
-                height: 200,
-                width: 150,
-              ), */
               Stack(
                 children: [
                   ImageWidget(
@@ -118,15 +96,11 @@ class _ShowPortraitWidgetState extends State<ShowPortraitWidget> {
                         if (state is FavoriteSavedState) {
                           if (state.id == widget.showItem.id.toString()) {
                             if (state.saved) _isFavorite = true;
-                            /* SnackWidget.showMessage(
-                              context, 'Added to favorites'); */
                           }
                         }
                         if (state is FavoriteDeletedState) {
                           if (state.id == widget.showItem.id.toString()) {
                             if (state.deleted) _isFavorite = false;
-                            /* SnackWidget.showMessage(
-                              context, 'Deleted from favorites'); */
                           }
                         }
                       },
@@ -153,57 +127,32 @@ class _ShowPortraitWidgetState extends State<ShowPortraitWidget> {
                     ParagraphWidget(
                       widget.showItem.summary,
                     ),
-                    /* Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: vspace_s, horizontal: hspace_s),
-                      child:  */
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        TextWidget('time: ${widget.showItem.scheduleTime}'),
-                        /* Expanded(
-                            child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Column(
-                            children: [
-                              Container(
-                                width: 50,
-                              ),
-                              Container(
-                                width: 50,
-                              ),
-                              Container(
-                                width: 50,
-                              ),
-                              Container(
-                                width: 50,
-                              ),
-                              Container(
-                                color: Colors.red,
-                                width: 50,
-                              ),
-                            ],
-                          ),
-                        )) */
-                        Expanded(
-                            child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: vspace_s, horizontal: hspace_s),
-                          child: Row(
-                            children: widget.showItem.scheduleDays
-                                .map((e) => Padding(
-                                    padding: const EdgeInsets.all(vspace_s),
-                                    child: Chip(
-                                        label: TextWidget(
-                                      e,
-                                      fontSize: fontSize_s,
-                                      color: Colors.black,
-                                    ))))
-                                .toList(),
-                          ),
-                        ))
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: hspace_m),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          TextWidget('time: ${widget.showItem.scheduleTime}'),
+                          Expanded(
+                              child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            padding: const EdgeInsets.only(left: hspace_m),
+                            child: Row(
+                              children: widget.showItem.scheduleDays
+                                  .map((e) => Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: hspace_m),
+                                      child: Chip(
+                                          label: TextWidget(
+                                        e,
+                                        fontSize: fontSize_s,
+                                        color: Colors.black,
+                                      ))))
+                                  .toList(),
+                            ),
+                          ))
+                        ],
+                      ),
                     ),
                     /* ) */
                     /* Html(
